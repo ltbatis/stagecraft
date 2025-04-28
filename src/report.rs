@@ -4,23 +4,25 @@ use std::collections::HashMap;
 
 pub fn generate_report(results: Vec<FunctionComplexity>) {
     if results.is_empty() {
-        println!("⚠️ No complexity data found.");
+        println!("{}", "⚠️  No complexity data found.".yellow().bold());
         return;
     }
 
-    println!("{}", "📋 Stagecraft Complexity Report".bold());
-    println!("{}", "────────────────────────────────────────────────────");
+    println!();
+    println!("{}", "📋 Stagecraft Complexity Report".bold().underline().blue());
+    println!("{}", "════════════════════════════════════════════════════".blue());
 
     // Group results by file
     let mut grouped: HashMap<String, Vec<FunctionComplexity>> = HashMap::new();
-
     for func in results {
         grouped.entry(func.file.clone()).or_default().push(func);
     }
 
     // Print report for each file
     for (file, mut functions) in grouped {
-        println!("\n{} {}\n{}", "📄 File:".bold(), file.bold(), "────────────────────────────────────────────────────".bold());
+        println!();
+        println!("{} {}", "📄 File:".bold().cyan(), file.bold().cyan());
+        println!("{}", "────────────────────────────────────────────────────".cyan());
 
         // Sort functions inside each file
         functions.sort_by(|a, b| b.score.cmp(&a.score));
@@ -34,17 +36,17 @@ pub fn generate_report(results: Vec<FunctionComplexity>) {
             };
 
             println!(
-                "{}. [{}] {} ({} - {}) [Line {}]",
+                "  {}. [{}] {} ({} - {}) [Line {}]",
                 i + 1,
-                func.kind,
-                func.name,
+                func.kind.bold(),
+                func.name.bold(),
                 grade_colored,
-                func.score,
+                func.score.to_string().bold(),
                 func.line
             );
         }
 
-        println!("{}", "────────────────────────────────────────────────────".bold());
+        println!("{}", "────────────────────────────────────────────────────".cyan());
 
         // Worst function per file
         if let Some(worst) = functions.first() {
@@ -56,8 +58,12 @@ pub fn generate_report(results: Vec<FunctionComplexity>) {
             };
 
             println!(
-                "🚨 Worst Function: {} ({}) - Complexity: {} [Line {}]",
-                worst.name, worst_grade_colored, worst.score, worst.line
+                "{} {} ({}) - Complexity: {} [Line {}]",
+                "🚨 Worst Function:".bold().red(),
+                worst.name.bold(),
+                worst_grade_colored,
+                worst.score.to_string().bold(),
+                worst.line
             );
         }
 
@@ -65,9 +71,18 @@ pub fn generate_report(results: Vec<FunctionComplexity>) {
         let total_score: usize = functions.iter().map(|f| f.score).sum();
         let average_score = total_score as f64 / functions.len() as f64;
 
-        println!("📊 Average Complexity Score: {:.2}", average_score);
-        println!("{}", "────────────────────────────────────────────────────".bold());
+        let avg_colored = if average_score <= 5.0 {
+            format!("{:.2}", average_score).green().bold()
+        } else if average_score <= 10.0 {
+            format!("{:.2}", average_score).yellow().bold()
+        } else {
+            format!("{:.2}", average_score).red().bold()
+        };
+
+        println!("{} {}", "📊 Average Complexity Score:".bold().blue(), avg_colored);
+        println!("{}", "════════════════════════════════════════════════════".cyan());
     }
 
+    println!();
     println!("{}", "✅ Stagecraft analysis completed successfully!".green().bold());
 }
