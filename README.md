@@ -16,7 +16,7 @@ It generates a beautiful and professional report highlighting:
 **Clone the repository** and build the project manually:
 
 ```bash
-git clone https://github.com/YOUR-USER/stagecraft.git
+git clone https://github.com/ltbatis/stagecraft.git
 cd stagecraft
 cargo build --release
 ```
