@@ -18,13 +18,17 @@ pub fn generate_report(results: Vec<FunctionComplexity>) {
         grouped.entry(func.file.clone()).or_default().push(func);
     }
 
+    let total_files = grouped.len();
+    let mut total_functions = 0;
+
     // Print report for each file
     for (file, mut functions) in grouped {
         println!();
         println!("{} {}", "📄 File:".bold().cyan(), file.bold().cyan());
         println!("{}", "────────────────────────────────────────────────────".cyan());
 
-        // Sort functions inside each file
+        total_functions += functions.len();
+
         functions.sort_by(|a, b| b.score.cmp(&a.score));
 
         for (i, func) in functions.iter().enumerate() {
@@ -84,5 +88,19 @@ pub fn generate_report(results: Vec<FunctionComplexity>) {
     }
 
     println!();
+
+    // Final Summary
+    println!("{}", "📄 Stagecraft Final Summary".bold().underline().blue());
+    println!("{}", "────────────────────────────────────────────────────".blue());
+    println!(
+        "{} {} | {} {}",
+        "🗂️ Files analyzed:".bold(),
+        total_files.to_string().bold().green(),
+        "🔎 Functions scanned:".bold(),
+        total_functions.to_string().bold().green()
+    );
+    println!("{}", "────────────────────────────────────────────────────".blue());
+    println!();
+
     println!("{}", "✅ Stagecraft analysis completed successfully!".green().bold());
 }
