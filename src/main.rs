@@ -36,8 +36,18 @@ fn main() {
                     println!("- {}", file);
                 }
 
-                // (Soon: analyze with radon and generate reports)
+                println!("\n📈 Running complexity analysis...\n");
+
+                for file in &staged_files {
+                    println!("Analyzing file: {}", file);
+                    if let Some(output) = radon::analyze_file(file) {
+                        println!("{}", output);
+                    } else {
+                        println!("⚠️ Failed to analyze {}", file);
+                    }
+                }
             }
         }
     }
 }
+
