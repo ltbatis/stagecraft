@@ -21,13 +21,22 @@ pub fn generate_report(mut results: Vec<FunctionComplexity>) {
     }
 
     println!("────────────────────────────────────────────────────");
-
+    // Worsst Function
     if let Some(worst) = results.first() {
         println!(
             "🚨 Worst Function: {} ({}) - Complexity: {} [Line {}]",
             worst.name, worst.grade, worst.score, worst.line
         );
     }
+
+
+    println!("────────────────────────────────────────────────────");
+    // Average complexity score
+    let total_score: usize = results.iter().map(|f| f.score).sum();
+    let average_score = total_score as f64 / results.len() as f64;
+
+    println!("📊 Average Complexity Score: {:.2}", average_score);
+    println!("");
 
     println!("✅ Stagecraft analysis completed successfully!");
 }
