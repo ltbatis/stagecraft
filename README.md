@@ -11,25 +11,18 @@ It generates a beautiful and professional report highlighting:
 
 ---
 
-## 📦 Installation
+## 📥 Installation Guide
 
-**Clone the repository** and build the project manually:
+Please see the detailed [Installation Guide](./INSTALL.md) for full setup instructions.
+
+---
+
+## 📦 Quick Installation (short version)
 
 ```bash
-git clone https://github.com/ltbatis/stagecraft.git
+git clone https://github.com/YOUR-USER/stagecraft.git
 cd stagecraft
 cargo build --release
-```
-
-**Run locally:**
-
-```bash
-cargo run -- analyze
-```
-
-**Or run the compiled binary:**
-
-```bash
 ./target/release/stagecraft analyze
 ```
 
@@ -60,11 +53,7 @@ cargo run -- analyze
 ## 🛠 Requirements
 
 - **Rust** (latest stable version)
-- **radon** Python package (installed globally):
-
-```bash
-pip install radon
-```
+- **radon** Python package
 
 ---
 
@@ -73,38 +62,16 @@ pip install radon
 When you run:
 
 ```bash
-cargo run -- analyze
+stagecraft analyze
 ```
 
-You will see:
-
-```
-📋 Stagecraft Complexity Report
-════════════════════════════════════════════════════
-
-📄 File: example.py
-────────────────────────────────────────────────────
-  1. [Function] very_complex_function (D - 22) [Line 40]
-  2. [Method] AnotherClass.simple_method (A - 1) [Line 12]
-────────────────────────────────────────────────────
-🚨 Worst Function: very_complex_function (D) - Complexity: 22 [Line 40]
-📊 Average Complexity Score: 11.50
-════════════════════════════════════════════════════
-
-📄 Stagecraft Final Summary
-────────────────────────────────────────────────────
-🗂️ Files analyzed: 1 | 🔎 Functions scanned: 2
-────────────────────────────────────────────────────
-
-✅ Stagecraft analysis completed successfully!
-```
+You will see a colorful report of your staged Python files.
 
 ---
 
 ## 🤝 Contributing
 
 Pull requests are welcome!
-For major changes, please open an issue first to discuss what you would like to change.
 
 ---
 
