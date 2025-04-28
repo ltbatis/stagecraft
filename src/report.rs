@@ -21,5 +21,13 @@ pub fn generate_report(mut results: Vec<FunctionComplexity>) {
     }
 
     println!("────────────────────────────────────────────────────");
+
+    if let Some(worst) = results.first() {
+        println!(
+            "🚨 Worst Function: {} ({}) - Complexity: {} [Line {}]",
+            worst.name, worst.grade, worst.score, worst.line
+        );
+    }
+
     println!("✅ Stagecraft analysis completed successfully!");
 }
