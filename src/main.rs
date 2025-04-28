@@ -38,16 +38,20 @@ fn main() {
 
                 println!("\n📈 Running complexity analysis...\n");
 
+                let mut all_results = Vec::new();
+
                 for file in &staged_files {
-                    println!("Analyzing file: {}", file);
-                    if let Some(output) = radon::analyze_file(file) {
-                        println!("{}", output);
-                    } else {
-                        println!("⚠️ Failed to analyze {}", file);
-                    }
+                    println!("Analyzing file: {}\n", file);
+                    let results = radon::analyze_file(file);
+                    all_results.extend(results);
+                }
+
+                if all_results.is_empty() {
+                    println!("⚠️ No complexity data found.");
+                } else {
+                    report::generate_report(all_results);
                 }
             }
         }
     }
 }
-
