@@ -20,10 +20,10 @@ Please see the detailed [Installation Guide](./INSTALL.md) for full setup instru
 ## 📦 Quick Installation (short version)
 
 ```bash
-git clone https://github.com/YOUR-USER/stagecraft.git
+git clone https://github.com/ltbatis/stagecraft.git
 cd stagecraft
-cargo build --release
-./target/release/stagecraft analyze
+cargo install --path .
+stagecraft analyze
 ```
 
 ---

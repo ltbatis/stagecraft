@@ -34,41 +34,35 @@ If radon is not found, ensure your Python user bin path is in your system PATH (
 
 ---
 
-## 3. Build Stagecraft
+## 3. Clone and Build Stagecraft
 
-Clone the Stagecraft repository and build it:
+Clone the Stagecraft repository and install it locally:
 
 ```bash
-git clone https://github.com/YOUR-USER/stagecraft.git
+git clone https://github.com/ltbatis/stagecraft.git
 cd stagecraft
-cargo build --release
+cargo install --path .
 ```
 
-The executable will be located at:
+This will install the `stagecraft` binary to your Cargo bin path, usually `~/.cargo/bin`.
+
+Make sure your `~/.cargo/bin` is in your PATH. If not, add it:
 
 ```bash
-./target/release/stagecraft
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or if you use zsh:
+
+```bash
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ---
 
-## 4. Install Stagecraft Globally (optional)
-
-To use Stagecraft from anywhere, copy the binary to `/usr/local/bin`:
-
-```bash
-sudo cp ./target/release/stagecraft /usr/local/bin/stagecraft
-```
-
-Now you can run Stagecraft globally:
-
-```bash
-stagecraft analyze
-```
-
----
-
-## 5. Quick Test
+## 4. Quick Test
 
 In any Git repository:
 
@@ -77,7 +71,7 @@ git add some_script.py
 stagecraft analyze
 ```
 
-Stagecraft will find the staged `.py` files and generate a report!
+Stagecraft will find the staged `.py` files and generate a colorful report!
 
 ✅ You're ready to use Stagecraft!
 
